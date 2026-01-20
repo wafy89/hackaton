@@ -1,16 +1,31 @@
-# This is a sample Python script.
+import random
+from categories import show_categories, show_game_length
+from data import game_logic
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+WELCOME_TEXT = "Welcome to the game"
 
 
-# Press the green button in the gutter to run the script.
+def show_welcome_message():
+    print(WELCOME_TEXT)
+
+
+def get_user_name():
+    user_name = input("What is your name? ")
+    if user_name == "" or len(user_name) < 2:
+       print("Please enter a valid name")
+       get_user_name()
+    return user_name
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    show_welcome_message()
+    print("")
+    name = get_user_name()
+    print("")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    topics = show_categories()
+    print("")
+
+    questions_count = show_game_length()
+    print("")
+    game_logic(questions_count, random.choice(topics))
+    
