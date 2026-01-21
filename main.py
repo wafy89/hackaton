@@ -1,4 +1,7 @@
 import random
+
+from wikipedia import DisambiguationError
+
 from categories import show_categories, show_game_length
 from data import game_logic
 
@@ -27,5 +30,10 @@ if __name__ == '__main__':
 
     questions_count = show_game_length()
     print("")
-    game_logic(questions_count, random.choice(topics))
+    try:
+        print("Loading....")
+        game_logic(questions_count, random.choice(topics))
+    except DisambiguationError as e:
+        print("Got an error trying again please wait....")
+        game_logic(questions_count, random.choice(topics))
     
