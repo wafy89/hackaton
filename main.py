@@ -1,16 +1,39 @@
-# This is a sample Python script.
+import random
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from wikipedia import DisambiguationError
+
+from categories import show_categories, show_game_length
+from data import game_logic
+
+WELCOME_TEXT = "Welcome to the game"
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def show_welcome_message():
+    print(WELCOME_TEXT)
 
 
-# Press the green button in the gutter to run the script.
+def get_user_name():
+    user_name = input("What is your name? ")
+    if user_name == "" or len(user_name) < 2:
+       print("Please enter a valid name")
+       get_user_name()
+    return user_name
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    show_welcome_message()
+    print("")
+    name = get_user_name()
+    print("")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    topics = show_categories()
+    print("")
+
+    questions_count = show_game_length()
+    print("")
+    try:
+        print("Loading....")
+        game_logic(questions_count, random.choice(topics))
+    except DisambiguationError as e:
+        print("Got an error trying again please wait....")
+        game_logic(questions_count, random.choice(topics))
+    
